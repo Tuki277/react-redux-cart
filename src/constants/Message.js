@@ -1,0 +1,5 @@
+export const messageAddToCartSuccess = 'Mua hang thanh cong'
+export const updateAddToCartSuccess = 'Cap nhat hang thanh cong'
+export const deleteProductInCartSuccess = 'Xoa hang thanh cong'
+export const cartEmpty = 'Gio hang trong'
+export const messageWelcome = 'Chao mung den voi shop'
