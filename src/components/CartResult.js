@@ -1,7 +1,22 @@
 import React, { Component } from 'react'
 
 class App extends Component {
+
+	showTotal = (cart) => {
+		var total = 0
+		if ( cart.length > 0 ) {
+			for ( var i = 0; i < cart.length; i++) {
+				total += cart[i].product.price * cart[i].quantity
+			}
+		}
+		return total
+	}
+
 	render() {
+
+		var { cart } = this.props
+		console.log(cart);
+
 		return (
 			<tr>
 				<td colSpan={3} />
@@ -12,7 +27,7 @@ class App extends Component {
 				</td>
 				<td>
 					<h4>
-						<strong>15$</strong>
+						<strong>{ this.showTotal(cart) }$</strong>
 					</h4>
 				</td>
 				<td colSpan={3}>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import * as Message from '../constants/Message'
 
 class Product extends Component {
 
@@ -11,6 +12,12 @@ class Product extends Component {
 			result.push(<i key = { i + j} className="fa fa-star-o" />)
 		}
 		return result
+	}
+
+	onAddToCart = (product) => {
+		// sẽ kết nối ở productContainer
+		this.props.onAddToCart(product)
+		this.props.onChangeMessage(Message.messageAddToCartSuccess)
 	}
 
 	render() {
@@ -44,7 +51,13 @@ class Product extends Component {
 						<div className="card-footer">
 							<span className="left">{ product.price }$</span>
 							<span className="right">
-								<a className="btn-floating blue-gradient" data-toggle="tooltip" data-placement="top" title data-original-title="Add to Cart">
+								<a 
+									className="btn-floating blue-gradient" 
+									data-toggle="tooltip" 
+									data-placement="top" 
+									title data-original-title="Add to Cart"
+									onClick = { () => this.onAddToCart( product ) } // bắt sự kiện phải viết theo arrow function	
+								>
 									<i className="fa fa-shopping-cart" />
 								</a>
 							</span>

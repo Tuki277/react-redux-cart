@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ProductList from '../components/ProductList'
-import Products from '../components/Product'
+import Product from '../components/Product'
+import { actionBuy, actionChangeMessage } from '../actions/index'
 
 const mapStateToProps = state => {
 	return {
@@ -9,16 +10,31 @@ const mapStateToProps = state => {
 	}
 }
 
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        onAddToCart: (product) => {
+            dispatch(actionBuy(product, 1));
+		},
+		onChangeMessage : (message) => {
+			dispatch(actionChangeMessage(message))
+		}
+    }
+}
+
 class ProductContainer extends Component {
 
 	showProducts = (products) => {
 		var result = null
+		var { onAddToCart, onChangeMessage } = this.props
 		if ( products.length > 0 ) {
 			result = products.map((product, index) => {
 				return (
-					<Products>
-						{ this.showProducts(products) }
-					</Products> // truyền vào components/product để lấy ra tên của từng sản phẩm
+					<Product 
+						key = {index} 
+						product = { product }
+						onAddToCart = { onAddToCart }
+						onChangeMessage = {onChangeMessage}
+					/>
 				)
 			})
 		}
@@ -30,9 +46,11 @@ class ProductContainer extends Component {
 		var { products } = this.props
 
 		return (
-			<ProductList products = { products } />
+			<ProductList>
+				{ this.showProducts(products) }
+			</ProductList> // truyền vào components/product để lấy ra tên của từng sản phẩm
 		)
 	}
 }
 
-export default connect(mapStateToProps, null)(ProductContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductContainer);
